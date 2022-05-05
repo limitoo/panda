@@ -1,6 +1,7 @@
 pub mod controllers;
 pub mod app;
 pub mod utils;
+pub mod model;
 
 use sqlx::{Pool, MySql};
 use axum::{body::Body, response::Response};
