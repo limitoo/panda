@@ -60,11 +60,11 @@ where
         }
     }
 
-    pub fn from_err() -> Self {
+    pub fn from_err(arg: &T) -> Self {
         Self {
             code: Some(CODE_FAIL),
             msg: Some("error".to_string()),
-            data: None,
+            data: Some(arg.clone()),
         }
     }
 

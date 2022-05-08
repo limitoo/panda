@@ -8,7 +8,6 @@ pub async fn get_news(
 	match news::sql_news_lists(&state.pool).await {
 		Ok(recode) => {
 			return RespVO::from(&recode).resp_json();
-	
 		}
 		Err(_err) => {
 			return RespVO::from(&"error".to_string()).resp_json();
@@ -30,3 +29,17 @@ pub async fn get_details(
 		}
 	}
 }
+
+pub async fn get_laster(
+	Extension(state): Extension<Arc<AppState>>
+) -> impl IntoResponse {
+	match news::sql_laster_100(&state.pool).await {
+		Ok(recode) => {
+			return RespVO::from(&recode).resp_json();
+		}
+		Err(_err) => {
+			return RespVO::from_err(&"error".to_string()).resp_json();
+		}
+	}
+}
+
