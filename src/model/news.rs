@@ -40,6 +40,15 @@ pub struct Details {
 }
 
 #[derive(Serialize, Deserialize, Debug, FromRow, Clone)]
+pub struct Minidetails {
+	pub id: i32,
+	pub news_id: i32,
+	pub src: String,
+	pub create_time: chrono::DateTime<Utc>,
+	pub content: String,
+}
+
+#[derive(Serialize, Deserialize, Debug, FromRow, Clone)]
 pub struct LasterLists {
 	pub id: i32,
 	pub href: String,

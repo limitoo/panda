@@ -42,3 +42,16 @@ pub async fn get_laster(
 		}
 	}
 }
+
+pub async fn get_hotnews(
+	Extension(state): Extension<Arc<AppState>>
+) -> impl IntoResponse {
+	match news::sql_hotnews(&state.pool, 5).await {
+		Ok(recode) => {
+			return RespVO::from(&recode).resp_json();
+		}
+		Err(_err) => {
+			return RespVO::from_err(&"error".to_string()).resp_json();
+		}
+	}
+}
