@@ -24,7 +24,7 @@ pub async fn sql_news_id(pool: &Pool<MySql>, id: i32) ->  Result<NewsLists, Erro
 }
 
 // select ny.id, nyd.content from news ny, details nyd where ny.id = nyd.news_id order by ny.create_time desc limit 10;
-pub async fn sql_laster_100(pool: &Pool<MySql>) ->  Result<Vec<LasterLists>, Error> {
+pub async fn sql_laster_100(pool: &Pool<MySql>, num: i32) ->  Result<Vec<LasterLists>, Error> {
 	let records:Vec<LasterLists> = sqlx::query_as::<_, LasterLists>(
 		r#"
 		select ny.id, ny.href,
@@ -40,9 +40,10 @@ pub async fn sql_laster_100(pool: &Pool<MySql>) ->  Result<Vec<LasterLists>, Err
 		ny.href_hash,
 		nyd.local_src,
 		nyd.src,
-		nyd.content from news ny, details nyd where ny.id = nyd.news_id order by ny.create_time desc limit 50;
+		nyd.content from news ny, details nyd where ny.id = nyd.news_id order by ny.create_time desc limit ?;
 		"#,
-	).fetch_all(pool).await?;
+	).bind(num)
+	.fetch_all(pool).await?;
 	// nyd.figure,
 	// nyd.p_list,
 	// nyd.alt,

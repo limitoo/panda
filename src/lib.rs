@@ -5,7 +5,7 @@ pub mod model;
 
 use sqlx::{Pool, MySql};
 use axum::{body::Body, response::Response};
-use utils::error::Error;
+use utils::{error::Error, model::CacheService};
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
 pub const CODE_SUCCESS: i8 = 0;
 pub const CODE_FAIL: i8 = -1;
@@ -13,7 +13,7 @@ pub const CODE_FAIL: i8 = -1;
 pub struct AppState {
 	/// 数据库连接
 	pub pool: Pool<MySql>,
-
+    pub con: CacheService,
 }
 
 /// http接口返回模型结构，提供基础的 code，msg，data 等json数据结构

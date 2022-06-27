@@ -33,7 +33,7 @@ pub async fn get_details(
 pub async fn get_laster(
 	Extension(state): Extension<Arc<AppState>>
 ) -> impl IntoResponse {
-	match news::sql_laster_100(&state.pool).await {
+	match news::sql_laster_100(&state.pool, 50).await {
 		Ok(recode) => {
 			return RespVO::from(&recode).resp_json();
 		}
@@ -42,4 +42,3 @@ pub async fn get_laster(
 		}
 	}
 }
-
