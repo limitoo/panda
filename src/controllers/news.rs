@@ -37,7 +37,6 @@ pub async fn sql_news_id(pool: &Pool<MySql>, id: i32) ->  Result<LasterLists, Er
 		.fetch_one(pool).await
 }
 
-// select ny.id, nyd.content from news ny, details nyd where ny.id = nyd.news_id order by ny.create_time desc limit 10;
 pub async fn sql_laster_100(pool: &Pool<MySql>, num: i32) ->  Result<Vec<LasterLists>, Error> {
 	let records:Vec<LasterLists> = sqlx::query_as::<_, LasterLists>(
 		r#"
